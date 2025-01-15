@@ -1,0 +1,26 @@
+{
+  "name": "frontend-movierama-lefterisdimitriou",
+  "version": "1.0.0",
+  "description": "",
+  "scripts": {
+    "start": "parcel index.html",
+    "build": "parcel build index.html"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/LefterisD/Frontend-MovieRama-LefterisDimitriou.git"
+  },
+  "author": "Lefteris Dimitriou",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/LefterisD/Frontend-MovieRama-LefterisDimitriou/issues"
+  },
+  "homepage": "https://github.com/LefterisD/Frontend-MovieRama-LefterisDimitriou#readme",
+  "devDependencies": {
+    "@eslint/js": "^9.18.0",
+    "eslint": "^9.18.0",
+    "globals": "^15.14.0",
+    "parcel": "^2.13.3",
+    "prettier": "3.4.2"
+  }
+}
