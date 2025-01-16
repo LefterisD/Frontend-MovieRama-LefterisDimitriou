@@ -20,30 +20,31 @@
 
 .movie__poster__container {
   flex-shrink: 0;
-  overflow: hidden;
+  /* overflow: hidden; */
   max-height: 20rem;
 }
 
 .movie__poster__container img {
   object-fit: cover;
   object-position: center;
-  width: 100%;
-  height: 100%;
+  width: 20rem;
+  height: 20rem;
   border-radius: 0.2rem;
-  -webkit-mask-image: -webkit-gradient(
-    linear,
-    left top,
-    left bottom,
-    color-stop(0, rgba(0, 0, 0, 1)),
-    color-stop(0.35, rgba(0, 0, 0, 1)),
-    color-stop(0.5, rgba(0, 0, 0, 1)),
-    color-stop(0.65, rgba(0, 0, 0, 1)),
-    color-stop(0.85, rgba(0, 0, 0, 0.6)),
-    color-stop(1, rgba(0, 0, 0, 0))
+  -webkit-mask-image: linear-gradient(
+    to bottom,
+    rgba(0, 0, 0, 1) 0%,
+    rgba(0, 0, 0, 1) 35%,
+    rgba(0, 0, 0, 1) 50%,
+    rgba(0, 0, 0, 1) 65%,
+    rgba(0, 0, 0, 0.6) 85%,
+    rgba(0, 0, 0, 0) 100%
   );
+  -webkit-mask-size: 100% 100%; /* Ensure it covers the image */
+  -webkit-mask-repeat: no-repeat; /* Prevent tiling */
 }
 
 .movie__content {
+    z-index: 100;
   display: flex;
   flex-direction: column;
   padding: 0.5rem;
