@@ -1,5 +1,6 @@
 @import url(searchBar.css);
 @import url(header.css);
+@import url(movie.css);
 
 /* #020D19; */
 * {
@@ -48,7 +49,7 @@ body {
     color: #fff;
 }
 
-/* .explore__more_section {
-    height: 1500px;
-    background-color: #020D19;
-} */
+.in__theater__header {
+  font-weight: 100;
+  font-size: 2rem;
+}
