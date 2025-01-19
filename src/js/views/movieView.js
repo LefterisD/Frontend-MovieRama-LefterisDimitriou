@@ -1,5 +1,6 @@
 import { buildPosterPath } from '../helpers.js';
 import * as model from '../model.js';
+import starSvg from 'url:./src/img/star.svg';
 
 class MovieView {
   _parentElement = document.querySelector('.in__theater__container');
@@ -16,7 +17,7 @@ class MovieView {
             <div class="movie__content">
                 <h2 class="movie__title">${movieData.title}</h2>
                 <div class="movie__info">
-                    <h6 class="movie__info__item flex"><img src="src/img/star.svg"> ${Math.round(movieData.vote_average * 10) / 10}</h6>
+                    <h6 class="movie__info__item flex"><img src="${starSvg}"> ${Math.round(movieData.vote_average * 10) / 10}</h6>
                     <h6 class="movie__info__item">· ${movieData.release_date.slice(0, 4)} ·</h6>
                     <h6 class="movie__info__item"><ul class="genre__list">${this._renderMovieGenres(movieData.genre_ids)} </ul></h6>    
                 </div>
@@ -61,7 +62,9 @@ class MovieView {
     const markup = `<span class="loader"></span>`;
 
     const movieExpanded = document.querySelector('.expanded');
-    movieExpanded.querySelector('.movie__expanded__content').insertAdjacentHTML('afterbegin', markup);
+    movieExpanded
+      .querySelector('.movie__expanded__content')
+      .insertAdjacentHTML('afterbegin', markup);
   }
 
   removeSpinner() {
@@ -98,15 +101,21 @@ class MovieView {
       movieCard.querySelector('.movie__trailer').innerHTML = `
             <iframe src="https://www.youtube.com/embed/${videoKey}" frameborder="0" allowfullscreen></iframe>`;
 
-      movieCard.querySelector('.movie__similar__movies').innerHTML = similarMovies.map(movie => {
-        const movie_poster_path = buildPosterPath(movie.poster_path, 'w500');
-        return `
-        <div class="similar__movie">
-            <img src="${movie_poster_path}" alt="similar-movie-poster">
-            <h4 class="similar__movie__title">${movie.title}</h4>
-        </div>
-        `
-      })
+      movieCard.querySelector('.movie__similar__movies').innerHTML =
+        similarMovies
+          .map(movie => {
+            const movie_poster_path = buildPosterPath(
+              movie.poster_path,
+              'w500',
+            );
+            return `
+          <div class="similar__movie">
+              <img src="${movie_poster_path}" alt="similar-movie-poster">
+              <h4 class="similar__movie__title">${movie.title}</h4>
+          </div>
+        `;
+          })
+          .join('');
 
       movieCard.querySelector('.movie__ratings').innerHTML = reviews.map(
         review => {

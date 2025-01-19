@@ -192,3 +192,15 @@
 .similar__movie__title {
   font-size: .8rem;
 }
+
+@media (max-width: 768px) {
+  .movie__container.expanded {
+    max-width: 400px;
+  }
+
+  .movie__similar__movies {
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+  }
+}
