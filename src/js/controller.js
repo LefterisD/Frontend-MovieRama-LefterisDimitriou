@@ -78,11 +78,14 @@ const controlMovieDetails = async event => {
 
   if (!isExpanded) return;
 
+  movieView.renderDetailsSpinner();
+
   try {
     await model.loadMovieReviews(movieId);
     await model.loadMovieVideos(movieId);
     await model.loadMovieSimilar(movieId);
 
+    movieView.removeSpinner();
     movieView.renderMovieDetails(event);
   } catch (error) {
     throw new Error(error);

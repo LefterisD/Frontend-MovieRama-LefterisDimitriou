@@ -57,6 +57,13 @@ class MovieView {
     this._parentElement.insertAdjacentHTML('afterbegin', markup);
   }
 
+  renderDetailsSpinner() {
+    const markup = `<span class="loader"></span>`;
+
+    const movieExpanded = document.querySelector('.expanded');
+    movieExpanded.querySelector('.movie__expanded__content').insertAdjacentHTML('afterbegin', markup);
+  }
+
   removeSpinner() {
     document.querySelector('.loader').remove();
   }
