@@ -1,8 +1,8 @@
 import { buildPosterPath } from '../helpers.js';
 
 class MovieView {
-  #parentElement = document.querySelector('.in__theater__container');
-  #data;
+  _parentElement = document.querySelector('.in__theater__container');
+  _data;
 
   buildMovieMarkup(movieData) {
     const movie_poster_path = buildPosterPath(movieData.poster_path, 'w500');
@@ -32,20 +32,25 @@ class MovieView {
 
   renderSpinner() {
     const markup = `<span class="loader"></span>`;
-    this.#parentElement.insertAdjacentHTML('afterbegin', markup);
+    this._parentElement.insertAdjacentHTML('afterbegin', markup);
   }
 
   removeSpinner() {
     document.querySelector('.loader').remove();
   }
-
-  #generateMarkup() {
-    this.#data.forEach(movie => {
-      this.#parentElement.insertAdjacentHTML(
+  
+  _generateMarkup() {
+    this._clear();
+    this._data.forEach(movie => {
+      this._parentElement.insertAdjacentHTML(
         'beforeend',
         this.buildMovieMarkup(movie),
       );
     });
+  }
+
+  _clear() {
+    this._parentElement.innerHTML = '';
   }
 
   addHandlerRender(handler) {
@@ -53,9 +58,8 @@ class MovieView {
   }
 
   render(data) {
-    this.#data = data;
-
-    this.#generateMarkup();
+    this._data = data;
+    this._generateMarkup();
   }
 }
 

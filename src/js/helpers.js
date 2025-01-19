@@ -1,4 +1,4 @@
-import { options } from './config.js';
+import { API_KEY, options } from './config.js';
 
 // const trailerKey = "DnJA5hMf4rE"; // From the response
 // const youtubeUrl = `https://www.youtube.com/watch?v=${trailerKey}`;
@@ -9,12 +9,30 @@ export const buildPosterPath = (poster_path, size) => {
   return `${baseUrl}${size}${poster_path}`;
 };
 
-export const getJSON = async url => {
+export const getJSON = async (url) => {
+  const url_w_api_key = `${url}&api_key=${API_KEY}`;
+
   try {
-    const res = await fetch(url, options);
+    const res = await fetch(url_w_api_key, options);
 
     return await res.json();
   } catch (error) {
     throw Error(error);
   }
 };
+
+export const debounce = (func, delay) => {
+  let timeout;
+  return (...args) => {
+    clearTimeout(timeout);
+    timeout = setTimeout(async () => {
+      try {
+        await func(...args);
+      } catch (err) {
+        console.error(err);
+      }
+    }, delay);
+  };
+};
+
+

@@ -1,19 +1,29 @@
 import * as model from './model.js';
 import movieView from './views/movieView.js';
+import searchView from './views/searchView.js';
+import { debounce } from './helpers.js';
+import { DEBOUNCE } from './config.js';
 
-const renderMovies = async () => {
+const controlMovies = async () => {
   try {
+    // movieView.renderSpinner();
 
-    movieView.renderSpinner();
-
-    const movies = await model.fetchPlayingNowMovies();
-    movieView.removeSpinner();
-    movieView.render(movies);
-    
+    await model.fetchPlayingNowMovies();
+    // movieView.removeSpinner();
+    movieView.render(model.state.nowPlaying);
   } catch (error) {
     throw new Error(error);
   }
 };
+
+const controlSearchResults = debounce(async query => {
+  try {
+    await model.loadSearchResults(query); // Await the search results
+    movieView.render(model.state.search.results); // Render the movies
+  } catch (error) {
+    console.error('Error in controlSearchResults:', error);
+  }
+}, DEBOUNCE);
 
 const handleUserScroll = () => {
   // Calculate the distance to the bottom of the page
@@ -22,13 +32,36 @@ const handleUserScroll = () => {
 
   // Trigger fetch if the user is within 300px from the bottom of the page
   if (scrollPosition >= bottomPosition - 300) {
-    renderMovies();
+    if (model.state.search.query === '') controlMovies();
+
+    if (model.state.search.query !== '') handleInputChange();
   }
 };
 
+const handleInputChange = async () => {
+  const query = searchView.getQuery();  
+
+  if (!query) {
+    model.state.page = 1;
+    model.state.nowPlaying = [];
+    controlMovies();
+    return;
+  }
+
+  if (model.state.search.query !== query) {
+    model.state.search.results = [];
+    model.state.page = 1;
+  }
+
+  model.state.search.query = query;
+
+  await controlSearchResults(query);
+};
+
 const init = () => {
-    renderMovies();
-    movieView.addHandlerRender(handleUserScroll);
-}
+  controlMovies();
+  movieView.addHandlerRender(handleUserScroll);
+  searchView.addHandlerSearch(handleInputChange);
+};
 
 init();
