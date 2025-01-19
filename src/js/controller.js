@@ -39,18 +39,24 @@ const handleUserScroll = () => {
 };
 
 const handleInputChange = async () => {
-  const query = searchView.getQuery();  
+  const query = searchView.getQuery();
 
   if (!query) {
     model.state.page = 1;
     model.state.nowPlaying = [];
+
     controlMovies();
+
+    movieView.changeHeader('Playing this week');
+
     return;
   }
 
   if (model.state.search.query !== query) {
     model.state.search.results = [];
     model.state.page = 1;
+
+    movieView.changeHeader(`Results for: <i>${query}</i>`);
   }
 
   model.state.search.query = query;
@@ -58,9 +64,18 @@ const handleInputChange = async () => {
   await controlSearchResults(query);
 };
 
+const controlGenres = async () => {
+  try {
+    await model.loadMovieGenres();
+  } catch (error) {
+    throw new Error(error);
+  }
+};
+
 const init = () => {
+  controlGenres();
   controlMovies();
-  movieView.addHandlerRender(handleUserScroll);
+//   movieView.addHandlerRender(handleUserScroll);
   searchView.addHandlerSearch(handleInputChange);
 };
 

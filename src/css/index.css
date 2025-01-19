@@ -1,6 +1,7 @@
 @import url(searchBar.css);
 @import url(header.css);
 @import url(movie.css);
+@import url(loader.css);
 
 /* #020D19; */
 * {
@@ -19,37 +20,31 @@ body {
 }
 
 .container {
-  height: 100vh;
-  /* background-image: url(/src/img/background.jpg);
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat; */
-
-  /* display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 2rem; */
-}
-
-.playing__now_section {
-  height: 100vh;
   display: flex;
   flex-direction: column;
   align-items: center;
   gap: 2rem;
-  background-image: 
-  linear-gradient(to bottom, rgba(100, 0, 0, 0) 60%, rgba(0, 0, 0, 0.5) 100%), 
-  url(/src/img/background.jpg);
+  min-height: 100vh; /* At least 100vh to fill the viewport initially */
+  background:
+    linear-gradient(
+      to bottom,
+      rgba(0, 0, 0, 0.6) 0%,
+      rgba(0, 0, 0, 0.4) 50%,
+      #1f2427 100%
+    ),
+    url('/src/img/background.jpg') center/cover no-repeat; /* Replace with your image */
+  background-attachment: fixed; /* Parallax effect */
   background-size: cover;
-  background-position: center;
   background-repeat: no-repeat;
 }
 
-.in__theater__header {
-    color: #fff;
-}
-
-.in__theater__header {
+.movie__list__header {
+  color: #fff;
   font-weight: 100;
   font-size: 2rem;
+}
+
+.flex {
+  display: flex;
+  align-items: center;
 }
