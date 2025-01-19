@@ -1,8 +1,5 @@
 import { API_KEY, options } from './config.js';
 
-// const trailerKey = "DnJA5hMf4rE"; // From the response
-// const youtubeUrl = `https://www.youtube.com/watch?v=${trailerKey}`;
-
 export const buildPosterPath = (poster_path, size) => {
   const baseUrl = 'https://image.tmdb.org/t/p/';
 
