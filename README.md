@@ -12,7 +12,7 @@ Frontend Movierama is a movie-themed project built with modern web development t
 - [License](#license)
 
 ## Live demo
-You can access a live demo of the app at this link:
+You can access a live demo of the app using this link:
 [MovieRama](https://glowing-froyo-cfbc70.netlify.app/)
 
 ## Installation
