@@ -16,7 +16,7 @@ class MovieView {
             <div class="movie__content">
                 <h2 class="movie__title">${movieData.title}</h2>
                 <div class="movie__info">
-                    <h6 class="movie__info__item flex"><img src="${starSvg}]"> ${Math.round(movieData.vote_average * 10) / 10}</h6>
+                    <h6 class="movie__info__item flex"><img src="${starSvg}"> ${Math.round(movieData.vote_average * 10) / 10}</h6>
                     <h6 class="movie__info__item">· ${movieData.release_date.slice(0, 4)} ·</h6>
                     <h6 class="movie__info__item"><ul class="genre__list">${this._renderMovieGenres(movieData.genre_ids)} </ul></h6>    
                 </div>
