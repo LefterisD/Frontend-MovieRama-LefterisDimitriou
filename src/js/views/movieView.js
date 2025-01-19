@@ -61,7 +61,9 @@ class MovieView {
     const markup = `<span class="loader"></span>`;
 
     const movieExpanded = document.querySelector('.expanded');
-    movieExpanded.querySelector('.movie__expanded__content').insertAdjacentHTML('afterbegin', markup);
+    movieExpanded
+      .querySelector('.movie__expanded__content')
+      .insertAdjacentHTML('afterbegin', markup);
   }
 
   removeSpinner() {
@@ -98,15 +100,21 @@ class MovieView {
       movieCard.querySelector('.movie__trailer').innerHTML = `
             <iframe src="https://www.youtube.com/embed/${videoKey}" frameborder="0" allowfullscreen></iframe>`;
 
-      movieCard.querySelector('.movie__similar__movies').innerHTML = similarMovies.map(movie => {
-        const movie_poster_path = buildPosterPath(movie.poster_path, 'w500');
-        return `
-        <div class="similar__movie">
-            <img src="${movie_poster_path}" alt="similar-movie-poster">
-            <h4 class="similar__movie__title">${movie.title}</h4>
-        </div>
-        `
-      })
+      movieCard.querySelector('.movie__similar__movies').innerHTML =
+        similarMovies
+          .map(movie => {
+            const movie_poster_path = buildPosterPath(
+              movie.poster_path,
+              'w500',
+            );
+            return `
+          <div class="similar__movie">
+              <img src="${movie_poster_path}" alt="similar-movie-poster">
+              <h4 class="similar__movie__title">${movie.title}</h4>
+          </div>
+        `;
+          })
+          .join('');
 
       movieCard.querySelector('.movie__ratings').innerHTML = reviews.map(
         review => {
