@@ -29,9 +29,11 @@ class MovieView {
             </div>
             <!-- Placeholder for expanded content -->
             <div class="movie__expanded__content">
-                <div class="movie__ratings"></div>
                 <div class="movie__trailer"></div>
+                <h4 class="details__title">Similar movies</h4>
                 <div class="movie__similar__movies"></div>
+                <h4 class="details__title">User reviews</h4>
+                <div class="movie__ratings"></div>
             </div>
         </div>
     `;
@@ -77,8 +79,74 @@ class MovieView {
     this._parentElement.innerHTML = '';
   }
 
+  renderMovieDetails(event) {
+    const movieCard = event.target.closest('.movie__container');
+    const isExpanded = this.getMovieExpandedState(event);
+
+    const videoKey = model.state.selectedMovie.videos[0].key;
+    const reviews = model.state.selectedMovie.reviews;
+    const similarMovies = model.state.selectedMovie.similar;
+
+    if (isExpanded) {
+      movieCard.querySelector('.movie__trailer').innerHTML = `
+            <iframe src="https://www.youtube.com/embed/${videoKey}" frameborder="0" allowfullscreen></iframe>`;
+
+      movieCard.querySelector('.movie__similar__movies').innerHTML = similarMovies.map(movie => {
+        const movie_poster_path = buildPosterPath(movie.poster_path, 'w500');
+        return `
+        <div class="similar__movie">
+            <img src="${movie_poster_path}" alt="similar-movie-poster">
+            <h4 class="similar__movie__title">${movie.title}</h4>
+        </div>
+        `
+      })
+
+      movieCard.querySelector('.movie__ratings').innerHTML = reviews.map(
+        review => {
+          return `
+            <div class="user__info">
+                <span class="user__info__author">${review.author}</span>
+                <span class="user__info__rating">${review.author_details.rating}/10</span>
+            </div>
+            <i class="user__review">${review.content}</i>
+            `;
+        },
+      );
+    }
+  }
+
+  getClickedMovieAndExpand(event) {
+    const movieCard = event.target.closest('.movie__container');
+    if (!movieCard) return;
+
+    const isexpanded = movieCard.classList.contains('expanded');
+
+    document
+      .querySelectorAll('.movie__container')
+      .forEach(card => card.classList.remove('expanded'));
+
+    if (!isexpanded) movieCard.classList.add('expanded');
+    if (isexpanded) {
+      movieCard.classList.remove('expanded');
+    }
+
+    return movieCard.dataset.id;
+  }
+
+  getMovieExpandedState(event) {
+    const movieCard = event.target.closest('.movie__container');
+
+    return movieCard.classList.contains('expanded');
+  }
+
   addHandlerRender(handler) {
     window.addEventListener('scroll', handler);
+  }
+
+  addHandlerExpand(handler) {
+    this._parentElement.addEventListener('click', async event => {
+      await handler(event);
+    });
   }
 
   render(data) {

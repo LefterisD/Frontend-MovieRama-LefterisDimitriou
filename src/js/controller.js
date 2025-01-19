@@ -72,10 +72,28 @@ const controlGenres = async () => {
   }
 };
 
+const controlMovieDetails = async event => {
+  const movieId = movieView.getClickedMovieAndExpand(event);
+  const isExpanded = movieView.getMovieExpandedState(event);
+
+  if (!isExpanded) return;
+
+  try {
+    await model.loadMovieReviews(movieId);
+    await model.loadMovieVideos(movieId);
+    await model.loadMovieSimilar(movieId);
+
+    movieView.renderMovieDetails(event);
+  } catch (error) {
+    throw new Error(error);
+  }
+};
+
 const init = () => {
   controlGenres();
   controlMovies();
-//   movieView.addHandlerRender(handleUserScroll);
+  movieView.addHandlerRender(handleUserScroll);
+  movieView.addHandlerExpand(controlMovieDetails);
   searchView.addHandlerSearch(handleInputChange);
 };
 
