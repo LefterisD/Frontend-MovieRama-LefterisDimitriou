@@ -67,6 +67,7 @@ const handleInputChange = async () => {
 const controlGenres = async () => {
   try {
     await model.loadMovieGenres();
+    await controlMovies();
   } catch (error) {
     throw new Error(error);
   }
@@ -94,7 +95,6 @@ const controlMovieDetails = async event => {
 
 const init = () => {
   controlGenres();
-  controlMovies();
   movieView.addHandlerRender(handleUserScroll);
   movieView.addHandlerExpand(controlMovieDetails);
   searchView.addHandlerSearch(handleInputChange);
