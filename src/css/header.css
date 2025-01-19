@@ -1,0 +1,19 @@
+.header {
+    /* height: 100%; */
+    margin-top: 1rem;
+  }
+  
+  .header__container {
+    display: inline-block;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .header__container__title {
+    color: #fff;
+  }
+  
+  .header__container__title {
+    font-weight: 300;
+  }
