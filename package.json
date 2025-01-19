@@ -4,7 +4,10 @@
   "description": "",
   "scripts": {
     "start": "parcel index.html",
-    "build": "parcel build index.html"
+    "build": "parcel build index.html",
+    "test": "jest",
+    "test:watch": "jest --watch",
+    "coverage": "jest --coverage"
   },
   "repository": {
     "type": "git",
@@ -17,9 +20,13 @@
   },
   "homepage": "https://github.com/LefterisD/Frontend-MovieRama-LefterisDimitriou#readme",
   "devDependencies": {
+    "@babel/core": "^7.26.0",
+    "@babel/preset-env": "^7.26.0",
     "@eslint/js": "^9.18.0",
+    "babel-plugin-istanbul": "^7.0.0",
     "eslint": "^9.18.0",
     "globals": "^15.14.0",
+    "jest": "^29.7.0",
     "parcel": "^2.13.3",
     "prettier": "3.4.2"
   }
