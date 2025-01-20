@@ -10,10 +10,10 @@ export const state = {
     results: [],
   },
   selectedMovie: {
-    reviews:[],
-    videos:[],
-    similar:[]
-  }
+    reviews: [],
+    videos: [],
+    similar: [],
+  },
 };
 let isFetching = false;
 
@@ -29,7 +29,6 @@ export const fetchPlayingNowMovies = async () => {
 
     state.nowPlaying.push(...movies);
 
-    console.log(movies);
     isFetching = false;
     state.page++;
   } catch (error) {
@@ -49,7 +48,6 @@ export const loadSearchResults = async query => {
     const movies = data.results;
     state.search.results.push(...movies);
 
-    console.log(movies);
     isFetching = false;
     state.page++;
   } catch (error) {
@@ -77,7 +75,6 @@ export const loadMovieReviews = async id => {
       `${API_URL}movie/${id}/reviews?language=en-US&page=1`,
     );
 
-    console.log(data);
     const reviews = data.results.slice(0, 2);
 
     state.selectedMovie.reviews = reviews;
@@ -88,11 +85,8 @@ export const loadMovieReviews = async id => {
 
 export const loadMovieVideos = async id => {
   try {
-    const data = await getJSON(
-      `${API_URL}movie/${id}/videos?language=en-US`,
-    );
+    const data = await getJSON(`${API_URL}movie/${id}/videos?language=en-US`);
     const videos = data.results.filter(video => video.type === 'Trailer');
-    console.log(videos);
     state.selectedMovie.videos = videos;
   } catch (error) {
     console.error(error);
@@ -104,9 +98,7 @@ export const loadMovieSimilar = async id => {
     const data = await getJSON(
       `${API_URL}movie/${id}/similar?language=en-US&page=1`,
     );
-
-    console.log(data);
-    state.selectedMovie.similar = data.results.slice(0,6);
+    state.selectedMovie.similar = data.results.slice(0, 6);
   } catch (error) {
     console.error(error);
   }
